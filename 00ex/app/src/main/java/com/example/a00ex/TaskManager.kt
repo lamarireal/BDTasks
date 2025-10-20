@@ -3,6 +3,15 @@ package com.example.a00ex
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 
+
+
+data class Persona(
+    val dni: String = "",
+    val nombre: String = "",
+    val apellidos: String = "",
+    val fechaNacimiento: String = "",
+    val provincia: String = ""
+)
 class TaskManager {
     private val db = FirebaseFirestore.getInstance()
     private val collection = db.collection("person")
@@ -23,7 +32,8 @@ class TaskManager {
     }
 
     //fun3
-    //suspend fun fun3(edad: Int): List<String> {
-
-    //}
+    suspend fun fun3(edad: Int): List<String> {
+        val person = collection.get().await().toObjects(Persona::class.java)
+        return person as List<String>
+    }
 }
