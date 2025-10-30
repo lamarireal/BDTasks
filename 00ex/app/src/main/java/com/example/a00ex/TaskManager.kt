@@ -1,39 +1,118 @@
-package com.example.a00ex
+package com.example.ad0
 
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
-
-
+import java.time.LocalDate
+import java.time.Period
+import java.time.format.DateTimeFormatter
 
 data class Persona(
-    val dni: String = "",
     val nombre: String = "",
     val apellidos: String = "",
+    val dni: String = "",
     val fechaNacimiento: String = "",
     val provincia: String = ""
 )
+
 class TaskManager {
     private val db = FirebaseFirestore.getInstance()
     private val collection = db.collection("person")
 
-    //fun1
-    suspend fun fun1(dni: String): String? {
-        val data = collection.whereEqualTo("dni", dni).get().await()
-        if (data.isEmpty) {
-            return "NO HAY"
+    suspend fun funGetUserWithDNI(dni: String): String {
+        val result = collection.whereEqualTo("dni", dni).get().await()
+        var nombre = ""
+        if (!result.isEmpty) {
+            nombre = result.documents[0].getString("nombre") ?: "Amogus"
+        } else {
+            return "nuh uh"
         }
-        return data.documents.firstOrNull()?.getString("nombre")
+        return nombre
     }
 
-    //fun2
-    suspend fun fun2(nombre: String): List<String> {
-        val data = collection.whereEqualTo("nombre", nombre).get().await()
-        return data.documents.map { "${it.getString("nombre")} ${it.getString("apellidos")}" }
+    suspend fun funGetUserListWithName(nombre: String): List<String> {
+        val result = collection.whereEqualTo("nombre", nombre).get().await()
+        val listUser = mutableListOf<String>()
+        if (!result.isEmpty) {
+            for (doc in result.documents) {
+                val name = doc.getString("nombre")
+                val apellido = doc.getString("Apellidos")
+                if (name != null && apellido != null) {
+                    listUser.add("$name $apellido")
+                }
+            }
+        }
+        return listUser
     }
 
-    //fun3
-    suspend fun fun3(edad: Int): List<String> {
-        val person = collection.get().await().toObjects(Persona::class.java)
-        return person as List<String>
+    private fun calculatorAge(fechaNacimiento: String): Int {
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        val fecha = LocalDate.parse(fechaNacimiento, formatter)
+        return Period.between(fecha, LocalDate.now()).years
+    }
+
+    suspend fun funGetUserUnderAge(edad: Int): List<String> {
+        val result = collection.get().await()
+        val listUser = mutableListOf<String>()
+
+        if (!result.isEmpty) {
+            for (doc in result.documents) {
+                val date = doc.getString("fechaNacimiento") ?: continue
+                val edadPersona = calculatorAge(date)
+
+                if (edadPersona < edad) {
+                    val name = doc.getString("nombre") ?: continue
+                    val apellido = doc.getString("apellidos") ?: continue
+                    listUser.add("$name $apellido")
+                }
+            }
+        }
+        return listUser
+    }
+
+    suspend fun funGetUserOlderAge(edad: Int): List<String> {
+        val result = collection.get().await()
+        val listUser = mutableListOf<String>()
+        if (!result.isEmpty) {
+            for (doc in result.documents) {
+                val date = doc.getString("fechaNacimiento") ?: continue
+                val edadPersona = calculatorAge(date)
+
+                if (edadPersona >= edad) {
+                    val name = doc.getString("nombre") ?: continue
+                    val apellido = doc.getString("apellidos") ?: continue
+                    listUser.add("$name $apellido")
+                }
+            }
+        }
+        return listUser
+    }
+
+    suspend fun funGetUserOnCity(city: List<String>): List<String> {
+        val result = collection.whereIn("provincia", city).get().await()
+        val listUser = mutableListOf<String>()
+        if (!result.isEmpty) {
+            for (doc in result.documents) {
+                val name = doc.getString("nombre") ?: continue
+                val apellido = doc.getString("apellidos") ?: continue
+                listUser.add("$name $apellido")
+            }
+        }
+        return listUser
+    }
+
+    suspend fun funGetUserOtherCity(city: List<String>): List<String> {
+        val result = collection.get().await()
+        val listUser = mutableListOf<String>()
+        if (!result.isEmpty) {
+            for (doc in result.documents) {
+                val provincia = doc.getString("provincia") ?: continue
+                if (provincia !in city) {
+                    val name = doc.getString("nombre") ?: continue
+                    val apellido = doc.getString("apellidos") ?: continue
+                    listUser.add("$name $apellido")
+                }
+            }
+        }
+        return listUser
     }
 }
