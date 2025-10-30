@@ -1,0 +1,105 @@
+{
+  "project_info": {
+    "project_number": "943120145517",
+    "project_id": "first-85d4f",
+    "storage_bucket": "first-85d4f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:943120145517:android:9305b29c258f0d16513364",
+        "android_client_info": {
+          "package_name": "com.example.a00ex"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBe_qO-fo1X0ccTGH-_eXElhrte9beoctc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:943120145517:android:adab5afd4bee1601513364",
+        "android_client_info": {
+          "package_name": "com.example.ad0"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBe_qO-fo1X0ccTGH-_eXElhrte9beoctc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:943120145517:android:27df5fa05a848519513364",
+        "android_client_info": {
+          "package_name": "com.example.ad_auth"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBe_qO-fo1X0ccTGH-_eXElhrte9beoctc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:943120145517:android:2d01b1db37beb826513364",
+        "android_client_info": {
+          "package_name": "com.example.ex01"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBe_qO-fo1X0ccTGH-_eXElhrte9beoctc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:943120145517:android:5e1d394e5d36b8b1513364",
+        "android_client_info": {
+          "package_name": "com.example.fbfirst_project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBe_qO-fo1X0ccTGH-_eXElhrte9beoctc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
